@@ -1,4 +1,4 @@
-# Java Enums
+# ⭐️ Java Enums
 
 Enums are a special Java type used to define collections of constants. They are useful when you have a fixed set of related values, such as days of the week, directions, or states.
 
@@ -76,7 +76,7 @@ public class Main {
 }
 ```
 ---
-# Java Optionals
+# ⭐️ Java Optionals
 
 `Optional` is a container object introduced in Java 8 to handle the presence or absence of a value without risking `NullPointerException`. It encourages writing cleaner and safer code by avoiding manual null checks.
 
@@ -187,3 +187,33 @@ public record Cat(String name, int age) {
 - Avoid calling `get()` directly unless you've confirmed the value is present.
 - Use methods like `.orElse()` or `.orElseThrow()` to handle absence of values gracefully.
 ---
+
+# ⚠️ EXTRA NOTES ON OPTIONALS (For Dummies) ⚠️
+
+## How to survive from null pointer exceptions:
+### 1. Don't assign a null to an optional variable
+```java
+Optional<Person> person = null; // BAD: This defeats the purpose of Optional
+```
+**Solution: use `empty()`**
+```java
+Optional<Person> person = Optional.empty(); // GOOD: No null here
+```
+### 2. Never call `get()` directly to get the value
+```java
+Optional<Person> person = PersonService.getPerson();
+Person myPerson = person.get(); // BAD: This throws an exception if the Optional is empty
+```
+**Solution 1: Using `isPresent()` and `.get()`**
+```java
+Optional<Person> person = PersonService.getPerson();
+    if(person.isPresent()) {                // Check if the value exists
+        Person myPerson = person.get();     // Safe to get the value here
+    }
+```
+**Solution 2: Using `orElse()`**
+```java
+Optional<Person> person = PersonService.getPerson();
+Person myPerson = person.orElse(new Person("Unknown Name")); // Provide a fallback value
+```
+
